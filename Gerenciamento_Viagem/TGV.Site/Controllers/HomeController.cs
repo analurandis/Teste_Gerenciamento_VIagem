@@ -20,7 +20,7 @@ namespace TGV.Site.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new  ViagensController(new DataAcess.Entity.Context.TGVContext()).ViagensPendentes());
         }
 
        

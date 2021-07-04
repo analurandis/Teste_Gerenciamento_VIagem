@@ -10,7 +10,7 @@ namespace TGV.Model
     [Table("TGV_VIAGEM")]
     public partial class Viagem
     {
-        [Required]
+    
         [Key]
         [DisplayName("Código")]
         [Column("CODIGO")]

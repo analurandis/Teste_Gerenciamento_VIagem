@@ -10,7 +10,7 @@ namespace TGV.Model
     [Table("TGV_CAMINHAO")]
     public partial class Caminhao
     {
-        [Required]
+        
         [Key]
         [DisplayName("Código")]
         [Column("CODIGO")]
@@ -41,6 +41,6 @@ namespace TGV.Model
         public int MOTORISTA_CODIGO { get; set; }
 
         [DisplayName("Motorista")]
-        public virtual Motorista Motoristas { get; set; }
+        public virtual Motorista Motorista { get; set; }
     }
 }

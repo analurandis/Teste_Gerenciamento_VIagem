@@ -16,12 +16,14 @@ namespace TGV.Model
             this.Viagens = new HashSet<Viagem>();
         }
 
-        [Required]
+       
         [Key]
-        [DisplayName("Código")]
+        [DisplayName("Cód.")]
         [Column("CODIGO")]
         public int Codigo { get; set; }
 
+        
+        [Required(ErrorMessage = "O Nome do motorista  é obigatório")]
         [DisplayName("Nome completo")]
         [Column("NOME")]
         public string Nome { get; set; }
@@ -42,6 +44,7 @@ namespace TGV.Model
         [Column("CIDADE")]
         public string Cidade { get; set; }
 
+        [StringLength(2)]
         [DisplayName("UF")]
         [Column("ESTADO")]
         public string Estado { get; set; }

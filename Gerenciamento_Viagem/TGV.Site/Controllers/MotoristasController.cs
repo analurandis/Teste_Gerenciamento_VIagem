@@ -19,13 +19,13 @@ namespace TGV.Site.Controllers
             _context = context;
         }
 
-        // GET: Motoristas
+   
         public async Task<IActionResult> Index()
         {
             return View(await _context.Motorista.ToListAsync());
         }
 
-        // GET: Motoristas/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,21 +40,19 @@ namespace TGV.Site.Controllers
                 return NotFound();
             }
 
-            return View(motorista);
+            return PartialView(motorista);
         }
 
-        // GET: Motoristas/Create
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Motoristas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Codigo,Nome,Rua,Numero,Bairro,Cidade,Estado,Cep")] Motorista motorista)
+        public async Task<IActionResult> Create([Bind("Nome,Rua,Numero,Bairro,Cidade,Estado,Cep")] Motorista motorista)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +63,7 @@ namespace TGV.Site.Controllers
             return View(motorista);
         }
 
-        // GET: Motoristas/Edit/5
+ 
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,12 +76,10 @@ namespace TGV.Site.Controllers
             {
                 return NotFound();
             }
-            return View(motorista);
+            return PartialView(motorista);
         }
 
-        // POST: Motoristas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Codigo,Nome,Rua,Numero,Bairro,Cidade,Estado,Cep")] Motorista motorista)
@@ -113,10 +109,10 @@ namespace TGV.Site.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(motorista);
+           return View(motorista);
         }
 
-        // GET: Motoristas/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -131,10 +127,9 @@ namespace TGV.Site.Controllers
                 return NotFound();
             }
 
-            return View(motorista);
+            return PartialView(motorista);
         }
 
-        // POST: Motoristas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

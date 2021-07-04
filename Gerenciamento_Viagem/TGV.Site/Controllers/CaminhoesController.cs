@@ -19,13 +19,19 @@ namespace TGV.Site.Controllers
             _context = context;
         }
 
-        // GET: Caminhoes
-        public async Task<IActionResult> Index()
+        public async void gerarViewBag(int id)
         {
-            return View(await _context.Caminhao.ToListAsync());
+            ViewBag.Motorista = await _context.Motorista.FirstOrDefaultAsync(p => p.Codigo == id);
         }
 
-        // GET: Caminhoes/Details/5
+        // GET: Caminhoes
+        public async Task<IActionResult> Index(int id)
+        {
+            gerarViewBag(id);
+            return View(await _context.Caminhao.Include(p=> p.Motorista).Where(p=> p.MOTORISTA_CODIGO == id).ToListAsync());
+        }
+
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,7 +46,7 @@ namespace TGV.Site.Controllers
                 return NotFound();
             }
 
-            return View(caminhao);
+            return PartialView(caminhao);
         }
 
         // GET: Caminhoes/Create
@@ -49,12 +55,10 @@ namespace TGV.Site.Controllers
             return View();
         }
 
-        // POST: Caminhoes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Codigo,Marca,Modelo,Placa,Eixo,Peso,MOTORISTA_CODIGO")] Caminhao caminhao)
+        public async Task<IActionResult> Create([Bind("Marca,Modelo,Placa,Eixo,Peso,MOTORISTA_CODIGO")] Caminhao caminhao)
         {
             if (ModelState.IsValid)
             {
@@ -62,7 +66,7 @@ namespace TGV.Site.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(caminhao);
+            return PartialView(caminhao);
         }
 
         // GET: Caminhoes/Edit/5
@@ -78,12 +82,10 @@ namespace TGV.Site.Controllers
             {
                 return NotFound();
             }
-            return View(caminhao);
+            return PartialView(caminhao);
         }
 
-        // POST: Caminhoes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Codigo,Marca,Modelo,Placa,Eixo,Peso,MOTORISTA_CODIGO")] Caminhao caminhao)
@@ -131,7 +133,7 @@ namespace TGV.Site.Controllers
                 return NotFound();
             }
 
-            return View(caminhao);
+            return PartialView(caminhao);
         }
 
         // POST: Caminhoes/Delete/5

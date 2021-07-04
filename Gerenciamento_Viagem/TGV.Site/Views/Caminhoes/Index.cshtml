@@ -4,62 +4,117 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="mx-auto">
+    <a class="btn btn-info text-white " id="motorista-create"><i class="fa fa-plus"></i> Adicionar Novo Caminhão</a>
+</div>
+<br />
+<div class="card shadow">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Marca)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Modelo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Placa)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Eixo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Peso)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MOTORISTA_CODIGO)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Marca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modelo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Placa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Eixo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Peso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MOTORISTA_CODIGO)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Codigo">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Codigo">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Codigo">Delete</a>
-            </td>
-        </tr>
+    <div class="card-header py-1 text-center">
+        <h5 class="m-1 font-weight-bold text-black">Caminhões - @ViewBag.Motorista.Nome </h5>
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-bordered display nowra">
+                <thead class="text-center">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Marca)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Modelo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Placa)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Eixo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Peso)
+                        </th>
+
+                        <th>Editar</th>
+                        <th>Ver</th>
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Marca)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Modelo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Placa)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Eixo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Peso)
+                            </td>
+
+                            <td class="text-center">
+                                <a data-id="@item.Codigo" class="btn btn-primary text-white" id="caminhao-edit"><i class="fa fa-edit"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <a data-id="@item.Codigo" class="btn btn-info text-white" id="caminhao-details"><i class="fa fa-list"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <a data-id="@item.Codigo" class="btn btn-danger text-white" id="caminhao-delete"><i class="fa fa-trash-alt"></i></a>
+                            </td>
+                           
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div id="modal" class="modal fade" data-backdrop="static">
+</div>
+@section scripts{
+    <script>
+        $('#caminhao-edit').click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/Motoristas/Edit/" + id, function () {
+                $("#modal").modal();
+            })
+
+        });
+
+        $('#caminhao-details').click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/Motoristas/Details/" + id, function () {
+                $("#modal").modal();
+            })
+
+        });
+
+        $('#caminhao-delete').click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/Motoristas/Delete/" + id, function () {
+                $("#modal").modal();
+            })
+
+        });
+
+        $('#caminhao-create').click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/Motoristas/Create/" + id, function () {
+                $("#modal").modal();
+            })
+
+        });
+
+    </script>
 }
-    </tbody>
-</table>

@@ -3,61 +3,77 @@
 @{
     ViewData["Title"] = "Create";
 }
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header ">
+            <p class="modal-title font-weight-bold text-white"> Adicionar Motorista</p>
+            <button type="button" class="close col-footer btn-close-modal" aria-label="Close" data-dismiss="modal">
+                <span aria-hidden="true" class="text-white">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Codigo" />
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <label asp-for="Nome" class="control-label"></label>
+                                <input asp-for="Nome" class="form-control" />
+                                <span asp-validation-for="Nome" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-10">
+                                <label asp-for="Rua" class="control-label"></label>
+                                <input asp-for="Rua" class="form-control" />
+                                <span asp-validation-for="Rua" class="text-danger"></span>
+                            </div>
 
-<h1>Create</h1>
+                            <div class="form-group col-2">
+                                <label asp-for="Numero" class="control-label"></label>
+                                <input asp-for="Numero" class="form-control" />
+                                <span asp-validation-for="Numero" class="text-danger"></span>
+                            </div>
 
-<h4>Motorista</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label asp-for="Bairro" class="control-label"></label>
+                                <input asp-for="Bairro" class="form-control" />
+                                <span asp-validation-for="Bairro" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-6">
+                                <label asp-for="Cidade" class="control-label"></label>
+                                <input asp-for="Cidade" class="form-control" />
+                                <span asp-validation-for="Cidade" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label asp-for="Estado" class="control-label"></label>
+                                <input asp-for="Estado" class="form-control" />
+                                <span asp-validation-for="Estado" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-6">
+                                <label asp-for="Cep" class="control-label"></label>
+                                <input asp-for="Cep" class="form-control" />
+                                <span asp-validation-for="Cep" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Salvar" class="btn btn-primary btn-block" />
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Rua" class="control-label"></label>
-                <input asp-for="Rua" class="form-control" />
-                <span asp-validation-for="Rua" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Numero" class="control-label"></label>
-                <input asp-for="Numero" class="form-control" />
-                <span asp-validation-for="Numero" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Bairro" class="control-label"></label>
-                <input asp-for="Bairro" class="form-control" />
-                <span asp-validation-for="Bairro" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cidade" class="control-label"></label>
-                <input asp-for="Cidade" class="form-control" />
-                <span asp-validation-for="Cidade" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cep" class="control-label"></label>
-                <input asp-for="Cep" class="form-control" />
-                <span asp-validation-for="Cep" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

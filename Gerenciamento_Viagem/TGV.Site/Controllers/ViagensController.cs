@@ -149,5 +149,13 @@ namespace TGV.Site.Controllers
         {
             return _context.Viagem.Any(e => e.Codigo == id);
         }
+
+        public List<Viagem> ViagensPendentes()
+        {
+            return _context.Viagem.Where(p => p.DataHora > DateTime.Now).ToList();
+        }
+
+
+
     }
 }
