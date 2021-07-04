@@ -4,48 +4,28 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Viagem</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataHora)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataHora)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LocalEntrega)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LocalEntrega)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LocalSaida)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LocalSaida)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.KmPercurso)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.KmPercurso)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MOTORISTA_CODIGO)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MOTORISTA_CODIGO)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Codigo" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="card shadow">
+
+    <div class="card-header py-1 text-center">
+        <h5 class="m-1 font-weight-bold text-black">Deseja Excluir a Viagem - @Model.LocalSaida / @Model.LocalEntrega? </h5>
+    </div>
+    <div class="card-body">
+        @{
+            Html.RenderPartial("PartialViewDetalhes");
+        }
+
+
+
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Codigo" />
+            <input type="submit" value="Excluir" class="btn btn-block btn-danger" />
+        </form>
+
+        <br />
+        <div>
+            <a class="btn btn-light" asp-action="Index">Voltar a lista de viagens</a>
+        </div>
+    </div>
 </div>

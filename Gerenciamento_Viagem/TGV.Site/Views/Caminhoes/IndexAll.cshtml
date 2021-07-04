@@ -1,0 +1,128 @@
+﻿@model IEnumerable<TGV.Model.Caminhao>
+
+@{
+    ViewData["Title"] = "IndexAll";
+}
+
+
+<div class="card shadow">
+
+    <div class="card-header py-1 text-center">
+        <h5 class="m-1 font-weight-bold text-black">Todos os Caminhões</h5>
+    </div>
+    <div class="card-body">
+        @if (Model.Count() > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered display nowra">
+                    <thead class="text-center">
+
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Codigo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Marca)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Modelo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Placa)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Eixo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Peso)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Motorista)
+                            </th>
+                            <th>Editar</th>
+                            <th>Ver</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Codigo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Marca)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Modelo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Placa)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Eixo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Peso)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Motorista.Nome)
+                                </td>
+                                <td class="text-center">
+                                    <a data-id="@item.Codigo" class="btn btn-primary text-white caminhao-edit"><i class="fa fa-edit"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <a data-id="@item.Codigo" class="btn btn-info text-white caminhao-details"><i class="fa fa-list"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <a data-id="@item.Codigo" class="btn btn-danger text-white caminhao-delete"><i class="fa fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+
+<div id="modal" class="modal fade" data-backdrop="static">
+</div>
+@section scripts{
+    <script>
+        $('.caminhao-edit').click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/Caminhoes/Edit/" + id, function () {
+                $("#modal").modal();
+            })
+
+        });
+
+        $('.caminhao-details').click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/Caminhoes/Details/" + id, function () {
+                $("#modal").modal();
+            })
+
+        });
+
+        $('.caminhao-delete').click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/Caminhoes/Delete/" + id, function () {
+                $("#modal").modal();
+            })
+
+        });
+
+        $('#caminhao-create').click(function () {
+            var id = $(this).attr("data-id-motorista");
+            $("#modal").load("/Caminhoes/Create/" + id, function () {
+                $("#modal").modal();
+            })
+
+        });
+
+    </script>
+}

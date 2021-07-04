@@ -4,50 +4,90 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>Viagem</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="DataHora" class="control-label"></label>
-                <input asp-for="DataHora" class="form-control" />
-                <span asp-validation-for="DataHora" class="text-danger"></span>
+<div class="card shadow">
+
+    <div class="card-header py-1 text-center">
+        <h5 class="m-1 font-weight-bold text-black">Cadastro de Viagem</h5>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label asp-for="DataHora" class="control-label"></label>
+                            <input asp-for="DataHora" class="form-control" />
+                            <span asp-validation-for="DataHora" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-6">
+                            <label asp-for="KmPercurso" class="control-label"></label>
+                            <input asp-for="KmPercurso" class="form-control" />
+                            <span asp-validation-for="KmPercurso" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label asp-for="LocalSaida" class="control-label"></label>
+                            <input asp-for="LocalSaida" class="form-control" />
+                            <span asp-validation-for="LocalSaida" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-6">
+                            <label asp-for="LocalEntrega" class="control-label"></label>
+                            <input asp-for="LocalEntrega" class="form-control" />
+                            <span asp-validation-for="LocalEntrega" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="MOTORISTA_CODIGO" class="control-label"></label>
+                        <select id="motorista-select" class="form-control" asp-for="MOTORISTA_CODIGO" asp-items="ViewBag.Motorista"></select>
+                        <span asp-validation-for="MOTORISTA_CODIGO" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" >
+                        @{
+                            Html.RenderPartial("SelectedCaminhoes");
+                        }
+                       
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Salvar" class="btn btn-primary btn-block" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="LocalEntrega" class="control-label"></label>
-                <input asp-for="LocalEntrega" class="form-control" />
-                <span asp-validation-for="LocalEntrega" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LocalSaida" class="control-label"></label>
-                <input asp-for="LocalSaida" class="form-control" />
-                <span asp-validation-for="LocalSaida" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="KmPercurso" class="control-label"></label>
-                <input asp-for="KmPercurso" class="form-control" />
-                <span asp-validation-for="KmPercurso" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MOTORISTA_CODIGO" class="control-label"></label>
-                <input asp-for="MOTORISTA_CODIGO" class="form-control" />
-                <span asp-validation-for="MOTORISTA_CODIGO" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+
+        <div>
+            <a class="btn btn-light" asp-action="Index">Voltar a lista de viagens</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
+   
+    <script>
+        $('#motorista-select').change(function () {
+            var id = $("#motorista-select").val();
+            var formData = new FormData();
+            formData.append("id", id);
+            $.ajax(
+                {
+                    url: "/Viagem/Caminhao",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    type: "POST",
+                    success: function (data) {
+                        $('#caminhao-select').html(data);
+                       
+                        $('#caminhao-select').prop("disabled", false);
+                    }
+                }
+            );
+        });
+    </script>
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

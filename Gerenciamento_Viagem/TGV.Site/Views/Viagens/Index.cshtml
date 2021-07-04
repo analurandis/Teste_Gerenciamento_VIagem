@@ -4,56 +4,87 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="mx-auto">
+    
+    <a class="btn btn-info text-white " asp-action="Create" id="motorista-create"><i class="fa fa-plus"></i> Adicionar Nova Viagem</a>
+</div>
+<br />
+<div class="card shadow">
 
-<p>
-    <a class="btn btn-info" asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DataHora)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LocalEntrega)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LocalSaida)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KmPercurso)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MOTORISTA_CODIGO)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataHora)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LocalEntrega)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LocalSaida)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KmPercurso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MOTORISTA_CODIGO)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Codigo">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Codigo">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Codigo">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="card-header py-1 text-center">
+        <h5 class="m-1 font-weight-bold text-black">Viagens Cadastradas </h5>
+    </div>
+
+    <div class="card-body">
+        @if (Model.Count() > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered display nowra">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataHora)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LocalEntrega)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LocalSaida)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.KmPercurso)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MOTORISTA_CODIGO)
+                            </th>
+                            <th>Editar</th>
+                            <th>Ver</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataHora)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LocalEntrega)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LocalSaida)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.KmPercurso)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Motoristas.Nome)
+                            </td>
+                            <td>
+
+                                <a asp-action="Edit" class="btn btn-primary text-white" asp-route-id="@item.Codigo"><i class="fa fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <a asp-action="Details" class="btn btn-info text-white" asp-route-id="@item.Codigo"><i class="fa fa-list"></i></a>
+                                
+                            </td>
+                            <td>
+                                <a asp-action="Delete" class="btn btn-danger text-white" asp-route-id="@item.Codigo"><i class="fa fa-trash-alt"></i></a>
+                                
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p>
+                Sem viagens cadastradas
+            </p>
+        }
+
+    </div>
+</div>

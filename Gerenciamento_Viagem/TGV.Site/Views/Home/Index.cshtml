@@ -6,18 +6,31 @@
     <div class="card-header py-1 text-center">
         <h5 class="m-1 font-weight-bold text-black">Próximas Viagens </h5>
     </div>
+    <div class="card-body">
+     
+        <div class="card-deck">
+            @foreach (var item in Model)
+            {
 
-    @foreach (var item in Model)
-    {
-        <div class="card-body">
-            <div class="card bg-light mb-3" style="max-width: 18rem;">
-                <div class="card-header">Header</div>
-                <div class="card-body">
-                    <h5 class="card-title">Light card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                <div class="card bg-light ">
+                    <div class="card-header">@item.DataHora</div>
+                    <div class="card-body">
+                        <h6 class="card-title">@item.LocalSaida / @item.LocalEntrega</h6>
+                        <p>Percurso: @item.KmPercurso km </p>
+                        <p>Caminhão: @item.Caminhao.Marca, @item.Caminhao.Modelo, @item.Caminhao.Placa </p>
+                        <p>Motorista: @item.Motoristas.Nome </p>
+                        
+                    </div>
+                    <div class="card-footer bg-transparent ">
+                        <a asp-action="Details" class="btn btn-info  float-right text-white" asp-controller="Viagens" asp-route-id="@item.Codigo"><i class="fa fa-eye"></i> Ver</a>
+                    </div>
                 </div>
-            </div>
-        </div>
-    }
+                  
 
+            }
+        </div>
+       
+
+    </div>
 </div>

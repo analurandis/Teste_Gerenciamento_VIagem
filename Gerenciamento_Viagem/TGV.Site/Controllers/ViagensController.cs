@@ -19,13 +19,19 @@ namespace TGV.Site.Controllers
             _context = context;
         }
 
-        // GET: Viagens
+        private void GerarViewBag(string Motorista = "", string Caminhao = "")
+        {
+            ViewBag.Motorista = new SelectList(_context.Motorista.OrderByDescending(p => p.Nome), "Codigo", "Nome", Motorista).Append(new SelectListItem("", "", true, true)).Reverse(); ;
+            ViewBag.Caminhao = new SelectList(_context.Caminhao.OrderByDescending(p => p.Marca), "Codigo", "Marca", Caminhao).Append(new SelectListItem("", "", true, true)).Reverse(); ;
+
+        }
+    
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Viagem.ToListAsync());
+            return View(await _context.Viagem.Include(p => p.Caminhao).Include(p => p.Motoristas).ToListAsync());
         }
 
-        // GET: Viagens/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,8 +39,7 @@ namespace TGV.Site.Controllers
                 return NotFound();
             }
 
-            var viagem = await _context.Viagem
-                .FirstOrDefaultAsync(m => m.Codigo == id);
+            var viagem = await _context.Viagem.Include(p => p.Caminhao).Include(p => p.Motoristas).FirstOrDefaultAsync(m => m.Codigo == id);
             if (viagem == null)
             {
                 return NotFound();
@@ -43,18 +48,17 @@ namespace TGV.Site.Controllers
             return View(viagem);
         }
 
-        // GET: Viagens/Create
+       
         public IActionResult Create()
         {
+            GerarViewBag();
             return View();
         }
 
-        // POST: Viagens/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Codigo,DataHora,LocalEntrega,LocalSaida,KmPercurso,MOTORISTA_CODIGO")] Viagem viagem)
+        public async Task<IActionResult> Create([Bind("Codigo,DataHora,LocalEntrega,LocalSaida,KmPercurso,MOTORISTA_CODIGO,CAMINHAO_CODIGO")] Viagem viagem)
         {
             if (ModelState.IsValid)
             {
@@ -62,10 +66,10 @@ namespace TGV.Site.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            GerarViewBag(viagem.MOTORISTA_CODIGO.ToString(), viagem.CAMINHAO_CODIGO.ToString());
+
             return View(viagem);
         }
-
-        // GET: Viagens/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,15 +82,15 @@ namespace TGV.Site.Controllers
             {
                 return NotFound();
             }
+            GerarViewBag(viagem.MOTORISTA_CODIGO.ToString(), viagem.CAMINHAO_CODIGO.ToString());
+
             return View(viagem);
         }
 
-        // POST: Viagens/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Codigo,DataHora,LocalEntrega,LocalSaida,KmPercurso,MOTORISTA_CODIGO")] Viagem viagem)
+        public async Task<IActionResult> Edit(int id, [Bind("Codigo,DataHora,LocalEntrega,LocalSaida,KmPercurso,MOTORISTA_CODIGO,CAMINHAO_CODIGO")] Viagem viagem)
         {
             if (id != viagem.Codigo)
             {
@@ -113,10 +117,12 @@ namespace TGV.Site.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            GerarViewBag(viagem.MOTORISTA_CODIGO.ToString(), viagem.CAMINHAO_CODIGO.ToString());
+
             return View(viagem);
         }
 
-        // GET: Viagens/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,8 +130,7 @@ namespace TGV.Site.Controllers
                 return NotFound();
             }
 
-            var viagem = await _context.Viagem
-                .FirstOrDefaultAsync(m => m.Codigo == id);
+            var viagem = await _context.Viagem.Include(p=> p.Caminhao).Include(p=>p.Motoristas).FirstOrDefaultAsync(m => m.Codigo == id);
             if (viagem == null)
             {
                 return NotFound();
@@ -134,7 +139,7 @@ namespace TGV.Site.Controllers
             return View(viagem);
         }
 
-        // POST: Viagens/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -152,10 +157,17 @@ namespace TGV.Site.Controllers
 
         public List<Viagem> ViagensPendentes()
         {
-            return _context.Viagem.Where(p => p.DataHora > DateTime.Now).ToList();
+            return _context.Viagem.Include(p => p.Caminhao).Include(p => p.Motoristas).Where(p => p.DataHora > DateTime.Now).ToList();
         }
 
+        [HttpPost]
+        [Route("/Viagem/Caminhao")]
+        public IActionResult Caminhao(int id)
+        {
+            ViewBag.Caminhao = new SelectList(_context.Caminhao.Where(p=> p.MOTORISTA_CODIGO == id).OrderByDescending(p => p.Marca), "Codigo", "Marca").Append(new SelectListItem("", "", true, true)).Reverse(); ;
+            return PartialView("SelectedCaminhoes");
 
+        }
 
     }
 }

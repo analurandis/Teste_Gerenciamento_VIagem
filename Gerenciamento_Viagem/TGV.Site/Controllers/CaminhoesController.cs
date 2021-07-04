@@ -31,6 +31,11 @@ namespace TGV.Site.Controllers
             return View(await _context.Caminhao.Include(p=> p.Motorista).Where(p=> p.MOTORISTA_CODIGO == id).ToListAsync());
         }
 
+        public async Task<IActionResult> IndexAll()
+        {
+            return View(await _context.Caminhao.Include(p => p.Motorista).ToListAsync());
+        }
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

@@ -1,0 +1,103 @@
+﻿@model TGV.Model.Viagem
+
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.DataHora)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.DataHora)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.LocalEntrega)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.LocalEntrega)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.LocalSaida)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.LocalSaida)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.KmPercurso)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.KmPercurso)
+        </dd>
+
+    </dl>
+    <div class="card">
+        <div class="card-header font-weight-bold py-1 text-center">
+            @Html.DisplayNameFor(model => model.MOTORISTA_CODIGO)
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Motoristas.Nome)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Motoristas.Nome)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Motoristas.Endereco)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Motoristas.Endereco)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Motoristas.Cidade)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Motoristas.Cidade)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Motoristas.Estado)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Motoristas.Estado)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Motoristas.Cep)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Motoristas.Cep)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-header font-weight-bold py-1 text-center">
+            @Html.DisplayNameFor(model => model.Caminhao)
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Caminhao.Marca)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Caminhao.Marca)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Caminhao.Modelo)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Caminhao.Modelo)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Caminhao.Placa)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Caminhao.Placa)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Caminhao.Peso)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Caminhao.Peso)
+                </dd>
+
+            </dl>
+        </div>
+    </div>

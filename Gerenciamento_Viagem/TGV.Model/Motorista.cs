@@ -73,6 +73,17 @@ namespace TGV.Model
             }
         }
 
+        [Display(Name = "Endereço")]
+        [NotMapped]
+        public string? Endereco
+        {
+            get
+            {
+                return this.Rua + ", Nº "+ this.Numero +", "+this.Bairro ;
+
+            }
+        }
+
 
     }
 }
