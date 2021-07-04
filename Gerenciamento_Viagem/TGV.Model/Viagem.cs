@@ -40,6 +40,13 @@ namespace TGV.Model
         [DisplayName("Motorista")]
         public virtual Motorista Motoristas { get; set; }
 
+        [DisplayName("Caminhão")]
+        [Column("CAMINHAO_CODIGO")]
+        public int CAMINHAO_CODIGO { get; set; }
+
+        [DisplayName("Caminhão")]
+        public virtual Caminhao Caminhao { get; set; }
+
 
     }
 }

@@ -27,15 +27,6 @@
                             @Html.DisplayNameFor(model => model.Nome)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Rua)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Numero)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Bairro)
-                        </th>
-                        <th>
                             @Html.DisplayNameFor(model => model.Cidade)
                         </th>
                         <th>
@@ -44,51 +35,50 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Cep)
                         </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalCaminhoes)
+                        </th>
                         <th>Editar</th>
                         <th>Ver</th>
                         <th>Excluir</th>
-                        <th>Veículo</th>
+                        <th>Caminhão</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                    <tr>
+                    <tr >
                         <td>
                             @Html.DisplayFor(modelItem => item.Codigo)
                         </td>
-                        <td>
+                        <td >
                             @Html.DisplayFor(modelItem => item.Nome)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Rua)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Numero)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Bairro)
-                        </td>
-                        <td>
+
+                        <td class="text-center">
                             @Html.DisplayFor(modelItem => item.Cidade)
                         </td>
-                        <td>
+                        <td class="text-center">
                             @Html.DisplayFor(modelItem => item.Estado)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Cep)
                         </td>
                         <td class="text-center">
-                            <a data-id="@item.Codigo" class="btn btn-primary text-white" id="motorista-edit"><i class="fa fa-edit"></i></a>
+                            @Html.DisplayFor(modelItem => item.TotalCaminhoes)
+                        </td>
+                        
+                        <td class="text-center">
+                            <a data-id="@item.Codigo" class="btn btn-primary text-white motorista-edit"><i class="fa fa-edit"></i></a>
                         </td>
                         <td class="text-center">
-                            <a data-id="@item.Codigo" class="btn btn-info text-white" id="motorista-details"><i class="fa fa-list"></i></a>
+                            <a data-id="@item.Codigo" class="btn btn-info text-white motorista-details"><i class="fa fa-list"></i></a>
                         </td>
                         <td class="text-center">
-                            <a data-id="@item.Codigo" class="btn btn-danger text-white" id="motorista-delete"><i class="fa fa-trash-alt"></i></a>
+                            <a data-id="@item.Codigo" class="btn btn-danger text-white motorista-delete"><i class="fa fa-trash-alt"></i></a>
                         </td>
                         <td class="text-center">
-                            <a asp-action="Index"class="btn btn-info" asp-controller="Caminhoes"  asp-route-id="@item.Codigo"><i class="fa fa-truck"></i></a> 
+                            <a asp-action="Index" class="btn btn-info" asp-controller="Caminhoes" asp-route-id="@item.Codigo"><i class="fa fa-truck"></i></a>
                         </td>
                     </tr>
                     }
@@ -101,7 +91,7 @@
 </div>
 @section scripts{
     <script>
-        $('#motorista-edit').click(function () {
+        $('.motorista-edit').click(function () {
             var id = $(this).attr("data-id");
             $("#modal").load("/Motoristas/Edit/" + id, function () {
                 $("#modal").modal();
@@ -109,7 +99,7 @@
 
         });
 
-        $('#motorista-details').click(function () {
+        $('.motorista-details').click(function () {
             var id = $(this).attr("data-id");
             $("#modal").load("/Motoristas/Details/" + id, function () {
                 $("#modal").modal();
@@ -117,7 +107,7 @@
 
         });
 
-        $('#motorista-delete').click(function () {
+        $('.motorista-delete').click(function () {
             var id = $(this).attr("data-id");
             $("#modal").load("/Motoristas/Delete/" + id, function () {
                 $("#modal").modal();
@@ -126,8 +116,7 @@
         });
 
         $('#motorista-create').click(function () {
-            var id = $(this).attr("data-id");
-            $("#modal").load("/Motoristas/Create/" + id, function () {
+            $("#modal").load("/Motoristas/Create/", function () {
                 $("#modal").modal();
             })
 

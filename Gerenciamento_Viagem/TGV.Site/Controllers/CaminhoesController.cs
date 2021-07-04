@@ -31,7 +31,6 @@ namespace TGV.Site.Controllers
             return View(await _context.Caminhao.Include(p=> p.Motorista).Where(p=> p.MOTORISTA_CODIGO == id).ToListAsync());
         }
 
-
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,8 +38,7 @@ namespace TGV.Site.Controllers
                 return NotFound();
             }
 
-            var caminhao = await _context.Caminhao
-                .FirstOrDefaultAsync(m => m.Codigo == id);
+            var caminhao = await _context.Caminhao.Include(p=> p.Motorista).FirstOrDefaultAsync(m => m.Codigo == id);
             if (caminhao == null)
             {
                 return NotFound();
@@ -50,9 +48,10 @@ namespace TGV.Site.Controllers
         }
 
         // GET: Caminhoes/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            return View();
+            gerarViewBag(id);
+            return PartialView();
         }
 
 
@@ -64,9 +63,9 @@ namespace TGV.Site.Controllers
             {
                 _context.Add(caminhao);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = caminhao.MOTORISTA_CODIGO});
             }
-            return PartialView(caminhao);
+            return View(caminhao);
         }
 
         // GET: Caminhoes/Edit/5
@@ -77,7 +76,7 @@ namespace TGV.Site.Controllers
                 return NotFound();
             }
 
-            var caminhao = await _context.Caminhao.FindAsync(id);
+            var caminhao = await _context.Caminhao.Include(p=> p.Motorista).FirstOrDefaultAsync(p=> p.Codigo == id);
             if (caminhao == null)
             {
                 return NotFound();
@@ -113,7 +112,7 @@ namespace TGV.Site.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = caminhao.MOTORISTA_CODIGO });
             }
             return View(caminhao);
         }
@@ -126,8 +125,7 @@ namespace TGV.Site.Controllers
                 return NotFound();
             }
 
-            var caminhao = await _context.Caminhao
-                .FirstOrDefaultAsync(m => m.Codigo == id);
+            var caminhao = await _context.Caminhao.Include(p => p.Motorista).FirstOrDefaultAsync(p => p.Codigo == id);
             if (caminhao == null)
             {
                 return NotFound();
@@ -144,7 +142,7 @@ namespace TGV.Site.Controllers
             var caminhao = await _context.Caminhao.FindAsync(id);
             _context.Caminhao.Remove(caminhao);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { id = caminhao.MOTORISTA_CODIGO });
         }
 
         private bool CaminhaoExists(int id)

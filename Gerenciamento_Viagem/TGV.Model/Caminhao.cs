@@ -10,6 +10,10 @@ namespace TGV.Model
     [Table("TGV_CAMINHAO")]
     public partial class Caminhao
     {
+        public Caminhao()
+        {
+            this.Viagens = new HashSet<Viagem>();
+        }
         
         [Key]
         [DisplayName("Código")]
@@ -42,5 +46,10 @@ namespace TGV.Model
 
         [DisplayName("Motorista")]
         public virtual Motorista Motorista { get; set; }
+
+
+        [ForeignKey("CAMINHAO_CODIGO")]
+        public virtual ICollection<Viagem> Viagens { get; set; }
+
     }
 }

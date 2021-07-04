@@ -60,8 +60,18 @@ namespace TGV.Model
 
         [ForeignKey("MOTORISTA_CODIGO")]
         public virtual ICollection<Viagem> Viagens { get; set; }
-     
-        
+
+
+        [Display(Name = "Caminhões")]
+        [NotMapped]
+        public int? TotalCaminhoes
+        {
+            get
+            {
+                return Caminhoes.Count;
+
+            }
+        }
 
 
     }

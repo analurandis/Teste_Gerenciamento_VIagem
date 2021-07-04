@@ -22,7 +22,7 @@ namespace TGV.Site.Controllers
    
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Motorista.ToListAsync());
+            return View(await _context.Motorista.Include(p=> p.Caminhoes).ToListAsync());
         }
 
 
